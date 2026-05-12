@@ -1,4 +1,5 @@
 const GRID_SIZE = 8;
+const SWIPE_THRESHOLD = 28;
 const STAGES = [
   { name: "Seed", emoji: "🌱", image: "assets/characters/seed.png", score: 2 },
   { name: "Sprout", emoji: "🌿", image: "assets/characters/sprout.png", score: 4 },
@@ -45,7 +46,7 @@ function compressAndMerge(line) {
   let i = 0;
 
   while (i < compact.length) {
-    if (compact[i] === compact[i + 1]) {
+    if (i + 1 < compact.length && compact[i] === compact[i + 1]) {
       const nextStage = Math.min(compact[i] + 1, STAGES.length - 1);
       merged.push(nextStage);
       gained += STAGES[nextStage].score;
@@ -150,6 +151,7 @@ function render() {
           img.src = stage.image;
           img.alt = stage.name;
           img.onerror = () => {
+            img.remove();
             applyEmojiFallback(tile, stage);
           };
           tile.appendChild(img);
@@ -202,7 +204,7 @@ function handleTouchEnd(event) {
   const dy = event.changedTouches[0].clientY - touchStart.y;
   const ax = Math.abs(dx);
   const ay = Math.abs(dy);
-  const threshold = 28;
+  const threshold = SWIPE_THRESHOLD;
 
   if (Math.max(ax, ay) < threshold) {
     touchStart = null;
