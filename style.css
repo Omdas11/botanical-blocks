@@ -1,0 +1,114 @@
+:root {
+  --board-size: min(92vw, 760px);
+  --gap: 6px;
+  --tile-size: calc((var(--board-size) - (var(--gap) * 9)) / 8);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Courier New", monospace;
+  color: #2f1c0f;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background-color: #f4e7c4;
+  background-image: url("assets/background/farm-bg.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.game-shell {
+  width: min(96vw, 840px);
+  background: rgba(255, 248, 228, 0.9);
+  border: 4px solid #6f4e37;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.hud h1 {
+  margin: 0;
+  font-size: clamp(1.1rem, 3vw, 1.8rem);
+}
+
+.score-wrap {
+  background: #f7d68a;
+  border: 2px solid #6f4e37;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-weight: bold;
+}
+
+.board {
+  width: var(--board-size);
+  height: var(--board-size);
+  padding: var(--gap);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: var(--gap);
+  border: 3px solid #6f4e37;
+  border-radius: 8px;
+  background-color: #a86f43;
+  background-image: url("assets/board/board-bg.png");
+  background-size: cover;
+}
+
+.tile {
+  width: var(--tile-size);
+  height: var(--tile-size);
+  border: 2px solid rgba(45, 24, 14, 0.25);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  user-select: none;
+  font-size: clamp(1.2rem, 3.5vw, 2rem);
+  font-weight: bold;
+  background-color: #e6cba8;
+}
+
+.tile-empty {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tile-stage-0 {
+  background-color: #b9e88b;
+}
+
+.tile-stage-1 {
+  background-color: #96d86a;
+}
+
+.tile-stage-2 {
+  background-color: #ffd58c;
+}
+
+.tile-stage-3 {
+  background-color: #ffc262;
+}
+
+.tile-stage-4 {
+  background-color: #93cb7c;
+}
+
+.tile img {
+  width: 80%;
+  height: 80%;
+  image-rendering: pixelated;
+}
+
+.emoji-fallback {
+  line-height: 1;
+}
