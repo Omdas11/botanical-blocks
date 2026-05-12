@@ -46,8 +46,12 @@ function compressAndMerge(line) {
   let i = 0;
 
   while (i < compact.length) {
-    if (i + 1 < compact.length && compact[i] === compact[i + 1]) {
-      const nextStage = Math.min(compact[i] + 1, STAGES.length - 1);
+    if (
+      i + 1 < compact.length &&
+      compact[i] === compact[i + 1] &&
+      compact[i] < STAGES.length - 1
+    ) {
+      const nextStage = compact[i] + 1;
       merged.push(nextStage);
       gained += STAGES[nextStage].score;
       i += 2;
@@ -164,7 +168,7 @@ function render() {
     }
   }
 
-  scoreEl.textContent = String(score);
+  scoreEl.textContent = score;
 }
 
 function handleKey(event) {
@@ -204,9 +208,7 @@ function handleTouchEnd(event) {
   const dy = event.changedTouches[0].clientY - touchStart.y;
   const ax = Math.abs(dx);
   const ay = Math.abs(dy);
-  const threshold = SWIPE_THRESHOLD;
-
-  if (Math.max(ax, ay) < threshold) {
+  if (Math.max(ax, ay) < SWIPE_THRESHOLD) {
     touchStart = null;
     return;
   }
