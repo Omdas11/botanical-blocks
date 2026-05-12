@@ -123,6 +123,11 @@ function isGameOver() {
   return !canMove();
 }
 
+function applyEmojiFallback(tile, stage) {
+  tile.textContent = stage.emoji;
+  tile.classList.add("emoji-fallback");
+}
+
 function render() {
   boardEl.innerHTML = "";
 
@@ -143,13 +148,11 @@ function render() {
           img.src = stage.image;
           img.alt = stage.name;
           img.onerror = () => {
-            tile.textContent = stage.emoji;
-            tile.classList.add("emoji-fallback");
+            applyEmojiFallback(tile, stage);
           };
           tile.appendChild(img);
         } else {
-          tile.textContent = stage.emoji;
-          tile.classList.add("emoji-fallback");
+          applyEmojiFallback(tile, stage);
         }
       }
 
