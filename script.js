@@ -42,15 +42,17 @@ function compressAndMerge(line) {
   const compact = line.filter((x) => x !== null);
   const merged = [];
   let gained = 0;
+  let i = 0;
 
-  for (let i = 0; i < compact.length; i += 1) {
-    if (compact[i] !== null && compact[i] === compact[i + 1]) {
+  while (i < compact.length) {
+    if (compact[i] === compact[i + 1]) {
       const nextStage = Math.min(compact[i] + 1, STAGES.length - 1);
       merged.push(nextStage);
       gained += STAGES[nextStage].score;
-      i += 1;
+      i += 2;
     } else {
       merged.push(compact[i]);
+      i += 1;
     }
   }
 
